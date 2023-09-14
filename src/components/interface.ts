@@ -9,5 +9,7 @@ export interface ICoordinatPoint {
 
 export interface IState {
     redPoint: ICoordinatPoint | null
-    snake: string[]
+    snake: string[],
+    route: string,
+    intervalId: NodeJS.Timer | null
 }

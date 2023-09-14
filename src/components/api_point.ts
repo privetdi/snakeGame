@@ -1,7 +1,7 @@
 import { randomNumber } from "./api";
 import { ICoordinatPoint } from "./interface";
 
-//нарисовать точку на поле
+//нарисовать красную точку на поле
 export function setPoint(polygon: number[][], snake: string[]): ICoordinatPoint {
     const coordinats: ICoordinatPoint = {
         rowsCoordinat: randomNumber(0, polygon.length - 1),

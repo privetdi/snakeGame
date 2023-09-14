@@ -1,6 +1,5 @@
-//создает массив (вертикаль)
-
-export function fillArray2(
+//создает массив (горизональ/столбцы)
+export function gameFieldColumns(
   arr: number[],
   limit: number,
   arr2?: number[][]
@@ -10,7 +9,7 @@ export function fillArray2(
       return arr2
     } else {
       arr2.push(arr)
-      return fillArray2(arr, limit, arr2)
+      return gameFieldColumns(arr, limit, arr2)
     }
   } else {
     if (arr.length === 0) {
@@ -19,33 +18,50 @@ export function fillArray2(
       let myArray: number[][] = []
       myArray.push(arr)
 
-      return fillArray2(arr, limit, myArray)
+      return gameFieldColumns(arr, limit, myArray)
     }
   }
 }
 
-//создает массив (горизонталь)
-export function fillArray(arr: number[], limit: number): number[] {
+//создает массив (вертикаль)
+export function gameFieldRows(arr: number[], limit: number): number[] {
   if (arr.length === 0) {
     arr.push(1)
-    fillArray(arr, limit)
+    gameFieldRows(arr, limit)
   } else {
     if (arr.length >= limit) {
       return arr
     } else {
       arr.push(arr.length + 1)
-      fillArray(arr, limit)
+      gameFieldRows(arr, limit)
     }
   }
   return arr
 }
 
-export function setArray(n1: number, n2: number): number[][] {
-  let array = [[n1], [n2]]
-  return array
-}
-
 export function randomNumber(min: number, max: number): number {
   let rand = min + Math.random() * (max + 1 - min)
   return Math.floor(rand)
+}
+
+export function debounce(
+  func: (...args: any[]) => void,
+  delay: number
+): (...args: any[]) => void {
+  let timeoutId: NodeJS.Timeout | null = null
+  let lastArgs: any[] | null = null
+
+  return function (...args: any[]): void {
+    lastArgs = args
+    if (timeoutId) {
+      clearTimeout(timeoutId)
+    }
+    timeoutId = setTimeout(() => {
+      if (lastArgs) {
+        func(...lastArgs)
+        lastArgs = null
+        timeoutId = null
+      }
+    }, delay)
+  }
 }
