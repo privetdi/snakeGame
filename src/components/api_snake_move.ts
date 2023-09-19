@@ -5,6 +5,7 @@ import { ICoordinatPoint } from "./interface";
 function setRouteSnake(str: string, arr: string[], limit: number, redPoint: ICoordinatPoint, intervalId: NodeJS.Timer | null) {
     const coordinats = extractDigits(arr)
     //проверка на стены и на наступание на хваст и делаем шаг
+    console.log('sneakmove ++++++', str)
     switch (str) {
         case "ArrowUp":
             if (routeAvailable(intervalId, coordinats.y >= 1 ? true : false, arr)) {

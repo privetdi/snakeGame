@@ -51,8 +51,7 @@ class Polygon extends React.Component<IProps, IState> {
     })
   }
 
-  handleKeyDown = (event: React.KeyboardEvent | string) => {
-    let prevStateUpdate: string | null = null
+  handleKeyDown = (event: React.KeyboardEvent) => {
     this.setState(
       (prevState) => {
         //исключаем шаг назад
@@ -60,42 +59,18 @@ class Polygon extends React.Component<IProps, IState> {
         const key: string = typeof event === 'string' ? event : event.key
         // Определите новый маршрут на основе предыдущего и текущего нажатия клавиши
         let newRoute
-        console.log('switch ket', key)
         switch (key) {
           case 'ArrowUp':
-            newRoute = prevRoute === 'ArrowDown' ? prevRoute : key
-            console.log(key)
-            if (this.state.intervalId !== null && newRoute !== prevRoute) {
-              clearInterval(this.state.intervalId)
-              prevStateUpdate = prevRoute
-            }
+            newRoute = prevRoute === 'ArrowDown' ? 'ArrowDown' : key
             break
           case 'ArrowDown':
-            newRoute = prevRoute === 'ArrowUp' ? prevRoute : key
-            console.log(key)
-
-            if (this.state.intervalId !== null && newRoute !== prevRoute) {
-              clearInterval(this.state.intervalId)
-              prevStateUpdate = prevRoute
-            }
+            newRoute = prevRoute === 'ArrowUp' ? 'ArrowUp' : key
             break
           case 'ArrowRight':
-            newRoute = prevRoute === 'ArrowLeft' ? prevRoute : key
-            console.log(key)
-
-            if (this.state.intervalId !== null && newRoute !== prevRoute) {
-              clearInterval(this.state.intervalId)
-              prevStateUpdate = prevRoute
-            }
+            newRoute = prevRoute === 'ArrowLeft' ? 'ArrowLeft' : key
             break
           case 'ArrowLeft':
-            newRoute = prevRoute === 'ArrowRight' ? prevRoute : key
-            console.log(key)
-
-            if (this.state.intervalId !== null && newRoute !== prevRoute) {
-              clearInterval(this.state.intervalId)
-              prevStateUpdate = prevRoute
-            }
+            newRoute = prevRoute === 'ArrowRight' ? 'ArrowRight' : key
             break
           default:
             newRoute = key
@@ -103,15 +78,9 @@ class Polygon extends React.Component<IProps, IState> {
         return { route: newRoute }
       },
       () => {
-        console.log('this.state.route ket', this.state.route)
-
         this.moveSnake(this.state.route)
-        this.timer1(typeof event === 'string' ? event : event.key)
-        if (
-          this.state.intervalId !== null &&
-          prevStateUpdate === this.state.route
-        ) {
-          console.log('clearinterval')
+        this.timer1(this.state.route)
+        if (this.state.intervalId !== null) {
           clearInterval(this.state.intervalId)
         }
       }
@@ -140,7 +109,7 @@ class Polygon extends React.Component<IProps, IState> {
           this.cb(route)
         }
       )
-    }, 1700)
+    }, 700)
     this.setState(() => {
       return { intervalId: intervalId }
     })
