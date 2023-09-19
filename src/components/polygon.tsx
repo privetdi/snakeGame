@@ -60,9 +60,11 @@ class Polygon extends React.Component<IProps, IState> {
         const key: string = typeof event === 'string' ? event : event.key
         // Определите новый маршрут на основе предыдущего и текущего нажатия клавиши
         let newRoute
+        console.log('switch ket', key)
         switch (key) {
           case 'ArrowUp':
             newRoute = prevRoute === 'ArrowDown' ? prevRoute : key
+            console.log(key)
             if (this.state.intervalId !== null && newRoute !== prevRoute) {
               clearInterval(this.state.intervalId)
               prevStateUpdate = prevRoute
@@ -70,6 +72,8 @@ class Polygon extends React.Component<IProps, IState> {
             break
           case 'ArrowDown':
             newRoute = prevRoute === 'ArrowUp' ? prevRoute : key
+            console.log(key)
+
             if (this.state.intervalId !== null && newRoute !== prevRoute) {
               clearInterval(this.state.intervalId)
               prevStateUpdate = prevRoute
@@ -77,6 +81,8 @@ class Polygon extends React.Component<IProps, IState> {
             break
           case 'ArrowRight':
             newRoute = prevRoute === 'ArrowLeft' ? prevRoute : key
+            console.log(key)
+
             if (this.state.intervalId !== null && newRoute !== prevRoute) {
               clearInterval(this.state.intervalId)
               prevStateUpdate = prevRoute
@@ -84,6 +90,8 @@ class Polygon extends React.Component<IProps, IState> {
             break
           case 'ArrowLeft':
             newRoute = prevRoute === 'ArrowRight' ? prevRoute : key
+            console.log(key)
+
             if (this.state.intervalId !== null && newRoute !== prevRoute) {
               clearInterval(this.state.intervalId)
               prevStateUpdate = prevRoute
@@ -95,6 +103,8 @@ class Polygon extends React.Component<IProps, IState> {
         return { route: newRoute }
       },
       () => {
+        console.log('this.state.route ket', this.state.route)
+
         this.moveSnake(this.state.route)
         this.timer1(typeof event === 'string' ? event : event.key)
         if (
@@ -130,7 +140,7 @@ class Polygon extends React.Component<IProps, IState> {
           this.cb(route)
         }
       )
-    }, 700)
+    }, 1700)
     this.setState(() => {
       return { intervalId: intervalId }
     })

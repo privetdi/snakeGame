@@ -47,21 +47,19 @@ export function randomNumber(min: number, max: number): number {
 export function debounce(
   func: (...args: any[]) => void,
   delay: number
-): (...args: any[]) => void {
+): (...args: any[]) => Promise<void> {
   let timeoutId: NodeJS.Timeout | null = null
-  let lastArgs: any[] | null = null
 
-  return function (...args: any[]): void {
-    lastArgs = args
+  return async function (...args: any[]): Promise<void> {
     if (timeoutId) {
       clearTimeout(timeoutId)
     }
-    timeoutId = setTimeout(() => {
-      if (lastArgs) {
-        func(...lastArgs)
-        lastArgs = null
-        timeoutId = null
-      }
-    }, delay)
+
+    return new Promise<void>((resolve) => {
+      timeoutId = setTimeout(async () => {
+        await func(...args)
+        resolve()
+      }, delay)
+    })
   }
 }
