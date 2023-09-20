@@ -35,7 +35,6 @@ class Polygon extends React.Component<IProps, IState> {
         this.state.intervalId
       ).snake
       let updatedRedPoint = prevState.redPoint
-      let upddateSnake = prevState.snake
       let upddateStart = route
 
       //проверка красная точка существует и точка вне тела змеи
@@ -79,7 +78,7 @@ class Polygon extends React.Component<IProps, IState> {
       },
       () => {
         this.moveSnake(this.state.route)
-        this.timer1(this.state.route)
+        this.startTimer(this.state.route)
         if (this.state.intervalId !== null) {
           clearInterval(this.state.intervalId)
         }
@@ -87,7 +86,7 @@ class Polygon extends React.Component<IProps, IState> {
     )
   }
 
-  debounceHandleKeyDown = debounce(this.handleKeyDown, 300)
+  debounceHandleKeyDown = debounce(this.handleKeyDown, 350)
 
   //рисуем игровую сетку
   polygon = gameFieldColumns(gameFieldRows([], 10), 10)
@@ -95,7 +94,8 @@ class Polygon extends React.Component<IProps, IState> {
   cb = (route: string) => {
     this.moveSnake(route)
   }
-  timer1 = (route: string) => {
+
+  startTimer = (route: string) => {
     const { snake, redPoint } = this.state
     if (redPoint === null) {
       this.setState({ redPoint: setPoint(this.polygon, snake) })
