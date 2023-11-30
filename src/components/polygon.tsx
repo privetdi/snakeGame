@@ -1,15 +1,15 @@
 import React, { RefObject } from 'react'
-import { IProps, IState } from './interface'
+import { IState } from './interface'
 import { gameFieldRows, gameFieldColumns } from './api'
 import { snakeMove } from './api_snake_move'
 import { hasMatchingCoordinates, setPoint } from './api_point'
 import { debounce } from './api'
 import './polygon.scss'
 
-class Polygon extends React.Component<IProps, IState> {
+class Polygon extends React.Component<{}, IState> {
   private myElementRef: RefObject<HTMLInputElement>
-  constructor(props: IProps) {
-    super(props)
+  constructor() {
+    super({})
     this.state = {
       snake: ['4-5', '5-5', '5-6'],
       redPoint: null,

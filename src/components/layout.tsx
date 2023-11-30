@@ -10,7 +10,7 @@ class Layout extends React.Component {
   render() {
     return (
       <div>
-        <Polygon item={123} />
+        <Polygon />
       </div>
     )
   }
