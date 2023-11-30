@@ -1,0 +1,14 @@
+.tile {
+  display: flex;
+  width: 10px;
+  height: 10px;
+  border: 1px solid black;
+
+  &.snake {
+    background-color: green;
+  }
+  &.redPoint {
+    background-color: red;
+    border-radius: 50%;
+  }
+}
